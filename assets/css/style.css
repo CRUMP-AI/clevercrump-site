@@ -181,7 +181,7 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
   width: 36px;
   height: 36px;
   flex: none;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.4s var(--ease);
 }
 
@@ -269,9 +269,9 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
 }
 
 .monogram {
-  width: clamp(72px, 10vw, 104px);
+  width: clamp(56px, 7vw, 88px);
   height: auto;
-  margin: 0 auto 2.25rem;
+  margin: 0 auto 2rem;
   filter: drop-shadow(0 0 28px rgba(213, 185, 113, 0.22));
 }
 
@@ -588,7 +588,7 @@ footer {
   gap: 1.1rem;
 }
 
-.foot-wordmark img.foot-mark { width: clamp(44px, 6vw, 64px); height: auto; flex: none; object-fit: cover; }
+.foot-wordmark img.foot-mark { width: clamp(44px, 6vw, 64px); height: auto; flex: none; object-fit: contain; }
 
 .foot-grid {
   display: grid;
@@ -752,6 +752,7 @@ footer {
 
 @media (max-width: 760px) {
   .hero { padding-bottom: 6rem; }
+  .monogram { width: 54px; margin-bottom: 1.5rem; }
   .scroll-hint { bottom: 1.5rem; }
   .nav-links {
     position: fixed;
