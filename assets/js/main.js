@@ -1,49 +1,52 @@
-/* Clever Crump — clevercrump.com
-   Mobile nav, scrolled nav state, footer year, staggered scroll reveals.
-   Vanilla JS. No dependencies. */
-
+/* Clever Crump — progressive navigation and restrained motion. */
 (function () {
   "use strict";
 
-  var nav = document.querySelector(".nav");
+  var nav = document.querySelector(".site-nav, .nav");
   var toggle = document.querySelector(".nav-toggle");
-  var menu = document.getElementById("nav-menu");
+  var menu = document.getElementById("nav-links") || document.getElementById("nav-menu");
 
-  /* Mobile nav */
+  function closeMenu(restoreFocus) {
+    if (!toggle || !menu) return;
+    menu.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-label", "Open menu");
+    if (restoreFocus) toggle.focus();
+  }
+
   if (toggle && menu) {
     toggle.addEventListener("click", function () {
-      var open = menu.classList.toggle("open");
+      var open = !menu.classList.contains("open");
+      menu.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-      document.body.style.overflow = open ? "hidden" : "";
     });
+
     menu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        menu.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Open menu");
-        document.body.style.overflow = "";
-      });
+      link.addEventListener("click", function () { closeMenu(false); });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && menu.classList.contains("open")) closeMenu(true);
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 680 && menu.classList.contains("open")) closeMenu(false);
     });
   }
 
-  /* Nav background deepens after scrolling */
   function onScroll() {
     if (nav) nav.classList.toggle("scrolled", window.scrollY > 24);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* Footer year */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
 
-  /* Staggered reveals */
-  var reduceMotion =
-    window.matchMedia &&
+  var reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   var revealEls = document.querySelectorAll(".reveal");
   if (!revealEls.length) return;
 
@@ -52,28 +55,24 @@
     return;
   }
 
-  /* Stagger siblings that share a parent (e.g. product cards) */
   revealEls.forEach(function (el) {
-    var sibs = Array.prototype.filter.call(el.parentElement.children, function (c) {
-      return c.classList && c.classList.contains("reveal");
+    var siblings = Array.prototype.filter.call(el.parentElement.children, function (candidate) {
+      return candidate.classList && candidate.classList.contains("reveal");
     });
-    var idx = sibs.indexOf(el);
-    if (sibs.length > 1 && idx > 0) {
-      el.style.setProperty("--reveal-delay", (idx * 0.12).toFixed(2) + "s");
+    var index = siblings.indexOf(el);
+    if (siblings.length > 1 && index > 0) {
+      el.style.setProperty("--reveal-delay", (index * 0.08).toFixed(2) + "s");
     }
   });
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
-  );
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: "0px 0px -4% 0px" });
 
   revealEls.forEach(function (el) { observer.observe(el); });
 })();
