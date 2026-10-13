@@ -177,14 +177,15 @@ section { padding: clamp(5rem, 10vw, 8.5rem) 0; }
   line-height: 1;
 }
 
-.brand svg {
+.brand img.brand-mark {
   width: 36px;
   height: 36px;
   flex: none;
+  object-fit: cover;
   transition: transform 0.4s var(--ease);
 }
 
-.brand:hover svg { transform: rotate(-12deg); }
+.brand:hover img.brand-mark { transform: rotate(-12deg); }
 .brand:hover { color: var(--ivory); }
 
 .nav-links {
@@ -587,7 +588,7 @@ footer {
   gap: 1.1rem;
 }
 
-.foot-wordmark svg { width: clamp(44px, 6vw, 64px); height: auto; flex: none; }
+.foot-wordmark img.foot-mark { width: clamp(44px, 6vw, 64px); height: auto; flex: none; object-fit: cover; }
 
 .foot-grid {
   display: grid;
@@ -803,6 +804,6 @@ footer {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .scroll-hint { animation: none; opacity: 0.4; }
-  .btn, .product-card, .brand svg, .product-card .go .arrow { transition: none; }
+  .btn, .product-card, .brand img, .product-card .go .arrow { transition: none; }
   .product-card:hover { transform: none; }
 }
