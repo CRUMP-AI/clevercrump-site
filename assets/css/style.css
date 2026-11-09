@@ -663,18 +663,23 @@ button, input, textarea, select { font: inherit; }
 .product-story-hell {
   min-height: 520px;
   grid-template-columns: .8fr 1.2fr;
-  background: linear-gradient(135deg, #16130d, #07080a 62%, #0d1015);
+  border: 1px solid rgba(219, 189, 121, .22);
+  background:
+    radial-gradient(ellipse 60% 45% at 82% -6%, rgba(219, 189, 121, .13), transparent 60%),
+    linear-gradient(135deg, #16130d, #07080a 62%, #0d1015);
   color: #f7f3ea;
 }
 
 .product-story-hell .product-meta { color: var(--gold-bright); }
+.product-story-hell .product-name { color: var(--gold-bright); font-size: 17px; letter-spacing: .16em; }
 .product-story-hell h3 { font-size: clamp(48px, 5vw, 74px); }
+.product-story-hell h3 em { color: var(--gold-bright); font-family: var(--display); font-weight: 500; }
 .product-story-hell .product-copy > p:not(.product-name) { color: #b6b0a1; }
 .product-story-hell .product-points { color: #ddd6c4; }
 
-.hell-art { position: relative; margin: 0; align-self: center; }
-.hell-art img { display: block; width: 100%; height: auto; border: 1px solid rgba(219, 189, 121, .28); border-radius: 18px; box-shadow: 0 30px 60px rgba(0, 0, 0, .45); }
-.hell-art figcaption { margin-top: 14px; color: #8f897b; font-family: var(--display); font-size: 14px; font-style: italic; }
+.hell-art { position: relative; margin: 0; align-self: stretch; min-height: 440px; }
+.hell-art img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 58% 18%; border: 1px solid rgba(219, 189, 121, .28); border-radius: 18px; box-shadow: 0 30px 60px rgba(0, 0, 0, .45); }
+.hell-art figcaption { position: absolute; left: 16px; bottom: 16px; z-index: 2; padding: 10px 15px; border: 1px solid rgba(219, 189, 121, .25); border-radius: 999px; background: rgba(9, 10, 12, .72); color: #e8e2d5; font-family: var(--display); font-size: 13px; font-style: italic; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
 
 /* Company */
 
@@ -846,6 +851,7 @@ footer {
   .phone-frame { left: 45%; width: 285px; }
   .puddles { right: 3%; width: 220px; }
   .product-story-hell { grid-template-columns: 1fr; }
+  .hell-art { min-height: 340px; }
   .company-shell { grid-template-columns: 1fr; }
   .founder-shell { grid-template-columns: 150px 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
@@ -909,6 +915,7 @@ footer {
   .phone-frame { left: 42%; width: 240px; height: 470px; border-width: 6px; border-radius: 38px; }
   .puddles { right: -13%; bottom: -1%; width: 175px; }
   .dabblebit-note { top: 7%; right: -6px; font-size: 14px; }
+  .hell-art { min-height: 260px; }
   .company { margin-top: 70px; padding: 100px 0; }
   .company h2 { font-size: clamp(46px, 13vw, 62px); }
   .company-statement > p:last-child { font-size: 16px; }
